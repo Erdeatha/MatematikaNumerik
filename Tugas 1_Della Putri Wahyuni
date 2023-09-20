@@ -1,0 +1,150 @@
+import numpy as np #panggil library
+def my_bisection(f, a, b, e):
+    if np.sign(f(a)) == np.sign(f(b)):
+        raise Exception('Tidak ada akar pada interval a dan b')
+    m = (a + b)/2
+    if np.abs(f(m)) < e:
+        return m
+    elif np.sign(f(a)) == np.sign(f(m)):
+        return my_bisection(f, m, b, e)
+    elif np.sign(f(b)) == np.sign(f(m)):
+        return my_bisection(f, a, m, e)
+
+"""**Contoh Pencarian Akar dengan Metode Bagi Dua**
+
+`f(x)=x^2 - 2`
+"""
+
+import numpy as np #panggil library
+f = lambda x: x**x-2
+
+r1 = my_bisection(f, 0, 2, 0.1)
+print("r1 =", r1)
+print("f(r1) =", f(r1))
+
+r01 = my_bisection(f, 0, 2, 0.01)
+print("r01 =", r01)
+print("f(r01) =", f(r01))
+
+############# Nomor 1 A ###############
+
+"""`f(x) = x^2 - 2`"""
+
+import numpy as np # Panggil library NumPy untuk digunakan dalam kode ini
+
+f = lambda x: x**3 - 2*x + 1 # Definisi fungsi f(x) yang akan digunakan untuk mencari akar
+
+my_bisection(f, 2, 4, 0.01) # Panggil fungsi my_bisection dengan parameter yang berbeda (tidak disimpan ke variabel)
+r1 = my_bisection(f, 0, 2, 0.1) # Cari akar dengan toleransi 0.1 dalam interval [0, 2]
+print("r1 =", r1) # Tampilkan hasil akar yang ditemukan
+print("f(r1) =", f(r1)) # Tampilkan nilai f(r1)
+
+r01 = my_bisection(f, 0, 2, 0.01) # Cari akar dengan toleransi 0.01 dalam interval [0, 2]
+print("r01 =", r01) # Tampilkan hasil akar yang ditemukan
+print("f(r01) =", f(r01)) # Tampilkan nilai f(r01)
+
+
+############# Nomor 1 B ###############
+
+import numpy as np #panggil library
+
+f = lambda x: np.exp(x) - x # Definisi fungsi f(x) yang akan digunakan untuk mencari akar
+
+my_bisection(f, 2, 4, 0.01) # Panggil fungsi my_bisection dengan parameter yang berbeda (tidak disimpan ke variabel)
+r1 = my_bisection(f, 0, 2, 0.1) # Cari akar dengan toleransi 0.1 dalam interval [0, 2]
+print("r1 =", r1) # Tampilkan hasil akar yang ditemukan
+print("f(r1) =", f(r1)) # Tampilkan nilai f(r1)
+
+r01 = my_bisection(f, 0, 2, 0.01) # Cari akar dengan toleransi 0.01 dalam interval [0, 2]
+print("r01 =", r01) # Tampilkan hasil akar yang ditemukan
+print("f(r01) =", f(r01)) # Tampilkan nilai f(r01)
+
+
+############# Nomor 2 A ###############
+
+import numpy as np #panggil library
+def my_bisection_iterasi(f, a, b, e, iterasi):
+    if np.sign(f(a)) == np.sign(f(b)):
+        raise Exception('Tidak ada akar pada interval a dan b')
+    m = (a + b)/2
+    i = 1 #inisialisasi variabel iterasi
+    while i < iterasi: #ulangi sampai iterasi mencapai iterasi atau f(m)    mendekati nol
+        if np.abs(f(m)) < e:
+            return m
+        elif np.sign(f(a)) == np.sign(f(m)):
+            a = m #ubah batas bawah menjadi m
+        elif np.sign(f(b)) == np.sign(f(m)):
+            b = m #ubah batas atas menjadi m
+        m = (a + b)/2 #hitung titik tengah baru
+        i += 1 #tambahkan variabel iterasi
+    return m #kembalikan hasil akhir
+
+f = lambda x: x**x-2
+
+r1 = my_bisection(f, 0, 2, 0.1)
+print("r1 =", r1)
+print("f(r1) =", f(r1))
+
+r01 = my_bisection(f, 0, 2, 0.01)
+print("r01 =", r01)
+print("f(r01) =", f(r01))
+
+
+############# Nomor 2 B ###############
+
+import numpy as np # Panggil library NumPy untuk digunakan dalam kode ini
+
+def my_bisection(f, a, b, e):
+    # Fungsi untuk melakukan metode bisection
+    # Input:
+    # - f: fungsi yang akan dicari akarnya
+    # - a: batas bawah interval
+    # - b: batas atas interval
+    # - e: toleransi error
+    # Output:
+    # - Akar dari fungsi f di dalam interval (a, b)
+    
+    if np.sign(f(a)) == np.sign(f(b)):
+        # Jika tanda fungsi pada a dan b sama, maka tidak mungkin ada akar dalam interval ini
+        raise Exception('Tidak ada akar pada interval a dan b')
+    m = (a + b) / 2
+    if np.abs(f(m)) < e:
+        # Jika nilai fungsi di tengah interval lebih kecil dari toleransi error (e),
+        # maka kita anggap m sebagai akar
+        return m
+    elif np.sign(f(a)) == np.sign(f(m)):
+        # Jika tanda fungsi di a sama dengan tanda fungsi di m,
+        # kita cari akar di interval (m, b)
+        return my_bisection(f, m, b, e)
+    elif np.sign(f(b)) == np.sign(f(m)):
+        # Jika tanda fungsi di b sama dengan tanda fungsi di m,
+        # kita cari akar di interval (a, m)
+        return my_bisection(f, a, m, e)
+        
+# Meminta masukan dari pengguna
+f_input = input("Masukkan fungsi f(x) dalam bentuk Python: ") # Meminta pengguna untuk memasukkan fungsi f(x)
+f = lambda x: eval(f_input) # Mengubah masukan pengguna menjadi fungsi Python yang dapat dievaluasi
+a = eval(input("Masukkan batas bawah interval a: ")) # Meminta pengguna untuk memasukkan batas bawah interval
+b = eval(input("Masukkan batas atas interval b: ")) # Meminta pengguna untuk memasukkan batas atas interval
+e = eval(input("Masukkan toleransi galat e: ")) # Meminta pengguna untuk memasukkan toleransi galat (error)
+
+# Mencari akar dari f(x) dengan metode bisection
+r = my_bisection(f, a, b, e) # Memanggil fungsi my_bisection untuk mencari akar
+print("r =", r) # Menampilkan nilai akar yang ditemukan
+print("f(r) =", f(r)) # Menampilkan nilai f(r), yaitu nilai fungsi pada akar yang ditemukan
+
+
+############# Nomor 2 C ###############
+
+import matplotlib.pyplot as plt #panggil library
+
+#membuat plot dari f(x) dan akarnya
+x = np.linspace(a, b, 100) #membuat array x dengan 100 titik antara a dan b
+y = f(x) #menghitung nilai f(x) untuk setiap x
+plt.plot(x, y, label="f(x)") #membuat garis plot dari f(x)
+plt.plot(r, f(r), "ro", label="r") #membuat titik plot dari akar r
+plt.axhline(y=0, color="k") #membuat garis horizontal pada y=0
+plt.xlabel("x") #memberi label sumbu x
+plt.ylabel("f(x)") #memberi label sumbu y
+plt.legend() #menampilkan legenda plot
+plt.show() #menampilkan plot
